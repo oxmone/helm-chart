@@ -1,0 +1,83 @@
+# Default values for oxmone.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+deployment:
+  image:
+    repository: nginx
+  # This sets the pull policy for images.
+    pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+  port: 80
+
+namespace: ""
+
+# This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: ""
+# This is to override the chart name.
+# nameOverride: ""
+# fullnameOverride: ""
+
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  type: NodePort # NodePort, LoadBalancer, ClusterIP
+  protocol:
+    name: TCP
+    http: 80
+    https: 443
+  annotations:
+    enabled: false # Set as `true` is the aim is to use an internal loadbalaner. You must set service type to be loadbalancer. This will give you a private ip address.
+    annotations: 'service.beta.kubernetes.io/azure-load-balancer-internal: "true"'
+
+env:
+  secret:
+    # set to `true` to create a secret with the environment variables. Secret name is same with the deployment name.
+    # data should contain key value pairs in the format of "key":"value".
+    create: false
+    data: 
+      {}
+  configmap:
+    # set to `true` to create a configmap with the environment variables. Configmap name is same with the deployment name.
+    # data should contain key value pairs in the format of "key":"value".
+    create: false 
+    data: 
+      {}
+
+
+#This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volume:
+  bind: false # set to `true` to bind a volume. Note that `pvc.create` must be set to true for the data to be persistent.
+  path: "/mnt/data" # Set to the correct path your application needs.
+
+nodeSelector: ""
+
+tolerations: ""
+
+# affinity: {}
