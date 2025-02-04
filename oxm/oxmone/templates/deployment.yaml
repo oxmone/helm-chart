@@ -6,7 +6,7 @@ metadata:
   # labels:
   #   {{- include "oxmone.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.deployment.replicas }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.deployment.name | quote }}
