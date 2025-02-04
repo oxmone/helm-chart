@@ -6,8 +6,9 @@
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 deployment:
+  name: ""
   image:
-    repository: nginx
+    repository: "nginx"
   # This sets the pull policy for images.
     pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
@@ -32,11 +33,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: "100m"
+    memory: "128Mi"
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: "100m"
+    memory: "128Mi"
   
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
