@@ -73,6 +73,25 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 
+
+# persistent volume
+pv:
+    # uncomment below to set persistent volume
+    create: false # true: create pv | false: do not create pvc
+    name: ""
+    size: 8Gi
+    path: "/var/lib/oxmone"
+    storageClass: "default"
+
+
+
+# persistent volume claim
+pvc:
+    create: false # true: create pvc | false: do not create pvc. Note that `volume.bind` must be true for this to be bond to a pod.
+    name: ""
+    size: 8Gi
+    storageClass: "default"
+
 # Additional volumes on the output Deployment definition.
 volume:
   bind: false # set to `true` to bind a volume. Note that `pvc.create` must be set to true for the data to be persistent.
