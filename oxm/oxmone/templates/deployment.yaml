@@ -51,7 +51,12 @@ spec:
               cpu: "50m"
               memory: "100Mi"
           {{- end }}
-
+      {{- if .Values.pvc.create }}
+  volumes:
+  - name: {{ .Values.deployment.name | quote }}
+    persistentVolumeClaim:
+      claimName: {{ .Values.pvc.name }}
+  {{- end}}
   # {{- if not .Values.autoscaling.enabled }}
   # replicas: {{ .Values.replicas.name }}
   # {{- end }}
@@ -102,18 +107,18 @@ spec:
       #   {{- toYaml . | nindent 8 }}
       # {{- end }}
       # {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- Values.nodeSelector | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-      - key: {{ .Values.tolerations.key | quote }}
-        operator: {{ .Values.tolerations.operator | quote }} 
-        value: {{ .Values.tolerations.value | quote }} 
-        effect: {{ .Values.tolerations.effects | quote }}
-      {{- end }}
-      imagePullSecrets:{{ .Values.imagePullSecrets}}
+  nodeSelector:
+    {{- Values.nodeSelector | nindent 8 }}
+  {{- end }}
+  {{- with .Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+  {{- with .Values.tolerations }}
+  tolerations:
+  - key: {{ .Values.tolerations.key | quote }}
+    operator: {{ .Values.tolerations.operator | quote }} 
+    value: {{ .Values.tolerations.value | quote }} 
+    effect: {{ .Values.tolerations.effects | quote }}
+  {{- end }}
+  imagePullSecrets:{{ .Values.imagePullSecrets}}
