@@ -10,5 +10,5 @@ entries:
     type: application
     urls:
     - https://oxmone.github.io/helm-chart/oxmone-0.2.0.tgz
-    version: 0.1.0
+    version: 0.2.0
 generated: "2025-03-02T02:01:14.8921712+01:00"
