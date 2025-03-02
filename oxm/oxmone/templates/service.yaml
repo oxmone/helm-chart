@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.deployment.name | quote }}
+  namespace: {{ .Values.namespace | quote }}
+  {{- if .Values.service.annotations.enabled}}
+  annotations:
+    {{ .Values.service.annotations.annotations}}
+  {{- end }}
+spec:
+  selector:
+    app: {{ .Values.deployment.name | quote}}
+  ports:
+    - name: http
+      protocol: {{ .Values.service.protocol.name}}
+      port: {{ .Values.service.protocol.http }}
+      targetPort: {{ .Values.deployment.port }}
+    - name: https
+      protocol: {{ .Values.service.protocol.name}}
+      port: {{ .Values.service.protocol.https }}
+      targetPort: {{ .Values.deployment.port }}
+  type: {{ .Values.service.type }}
