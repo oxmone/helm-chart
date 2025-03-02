@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  oxmone:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-03-02T01:29:03.8358976+01:00"
+    description: A Helm chart for Kubernetes
+    digest: d1c43051e9e5f30bc221a49fab50721427253a25201e47a1fed3ade05664b500
+    name: oxmone
+    type: application
+    urls:
+    - https://Ridwan010.github.io/helm-chart/oxmone-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-03-02T01:29:03.8348036+01:00"
