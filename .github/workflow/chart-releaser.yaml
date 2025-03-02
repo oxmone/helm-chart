@@ -1,4 +1,4 @@
-# This workflow will deploy a new release of helm chart by if the chart is updated in the main branch. It will conncet to gh-pages branch to package and deploy a new relase. Note that you must always update the version of the chart in chart.yaml file everytime you are creating a new release
+# This workflow will deploy a new release of helm chart  if the chart is updated in the main branch. It will conncet to gh-pages branch to package and deploy a new relase. Note that you must always update the version of the chart in chart.yaml file everytime you are creating a new release
 
 name: Release Charts
 
