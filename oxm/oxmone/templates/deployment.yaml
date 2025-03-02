@@ -57,56 +57,6 @@ spec:
     persistentVolumeClaim:
       claimName: {{ .Values.pvc.name }}
   {{- end}}
-  # {{- if not .Values.autoscaling.enabled }}
-  # replicas: {{ .Values.replicas.name }}
-  # {{- end }}
-  # selector:
-  #   matchLabels:
-  #     {{ .Values.deployment.name | quote }}
-  # # template:
-  # #   metadata:
-  # #     {{- with .Values.podAnnotations }}
-  # #     annotations:
-  # #       {{- toYaml . | nindent 8 }}
-  # #     {{- end }}
-  #     # labels:
-  #     #   {{- include "oxmone.labels" . | nindent 8 }}
-  #     #   {{- with .Values.podLabels }}
-  #     #   {{- toYaml . | nindent 8 }}
-  #     #   {{- end }}
-  #   spec:
-  #     {{- with .Values.imagePullSecrets }}
-  #     imagePullSecrets:
-  #       {{- toYaml . | nindent 8 }}
-  #     {{- end }}
-  #     # serviceAccountName: {{ include "oxmone.serviceAccountName" . }}
-  #     # securityContext:
-  #     #   {{- toYaml .Values.podSecurityContext | nindent 8 }}
-  #     # containers:
-  #     #   - name: {{ .Chart.Name }}
-  #     #     securityContext:
-  #     #       {{- toYaml .Values.securityContext | nindent 12 }}
-  #         image: "{{ .Values.deployment.image }}:{{ .Values.deployment.tag}}"
-  #         imagePullPolicy: {{ .Values.deployment.pullPolicy }}
-  #         ports:
-  #           - name: http
-  #             containerPort: {{ .Values.deployment.port }}
-  #             protocol: TCP
-  #         # livenessProbe:
-  #         #   {{- toYaml .Values.livenessProbe | nindent 12 }}
-  #         # readinessProbe:
-  #         #   {{- toYaml .Values.readinessProbe | nindent 12 }}
-      #     resources:
-      #       {{.Values.resources. | nindent 12 }}
-      #     {{- with .Values.volumeMounts }}
-      #     volumeMounts:
-      #       {{- toYaml . | nindent 12 }}
-      #     {{- end }}
-      # {{- with .Values.volumes }}
-      # volumes:
-      #   {{- toYaml . | nindent 8 }}
-      # {{- end }}
-      # {{- with .Values.nodeSelector }}
   nodeSelector:
     {{- Values.nodeSelector | nindent 8 }}
   {{- end }}
