@@ -1,5 +1,8 @@
 name: Release Charts
 
+# This workflow will deploy a new release of helm chart  if the chart is updated in the main branch. It will conncet to gh-pages branch to package and deploy a new relase. Note that you must always update the version of the chart in chart.yaml file everytime you are creating a new release
+
+
 on:
   push:
     branches: [main]
@@ -13,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -28,6 +31,6 @@ jobs:
           # charts_repo_url: "https://helm.cloudclinic.ng"
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
+        uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
