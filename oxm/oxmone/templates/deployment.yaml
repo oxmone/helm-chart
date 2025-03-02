@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Values.deployment.name | quote }}
   namespace: {{ .Values.namespace | quote }}
-  # labels:
-  #   {{- include "oxmone.labels" . | nindent 4 }}
+  labels:
+    {{ include "oxmone.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
@@ -19,26 +19,29 @@ spec:
     spec:
       containers:
         - name: {{ .Values.deployment.name | quote }}
-          image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
-          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          imagePullPolicy: {{ .Values.deployment.image.pullpolicy }}
           ports:
-          - containerPort: {{ .Values.deployment.port }}
+            - containerPort: {{ .Values.deployment.port }}
+          
           {{- if .Values.volume.bind }}
           volumeMounts:
-          - name: {{ .Values.deployment.name | quote }}
-            mountPath: {{ .Values.volume.path }}
+            - name: {{ .Values.deployment.name | quote }}
+              mountPath: "{{ .Values.volume.path }}"
           {{- end }}
+
           {{- if .Values.env }}
           envFrom:
             {{- if .Values.env.secret.create }}
             - secretRef:
                 name: {{ .Values.deployment.name | quote }}
-            {{- end}}
+            {{- end }}
             {{- if .Values.env.configmap.create }}
             - configMapRef:
                 name: {{ .Values.deployment.name | quote }}
-            {{- end}}
+            {{- end }}
           {{- end }}
+
           {{- if .Values.resources }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -51,24 +54,30 @@ spec:
               cpu: "50m"
               memory: "100Mi"
           {{- end }}
+
       {{- if .Values.pvc.create }}
-  volumes:
-  - name: {{ .Values.deployment.name | quote }}
-    persistentVolumeClaim:
-      claimName: {{ .Values.pvc.name }}
-  {{- end}}
-  nodeSelector:
-    {{- Values.nodeSelector | nindent 8 }}
-  {{- end }}
-  {{- with .Values.affinity }}
-  affinity:
-    {{- toYaml . | nindent 8 }}
-  {{- end }}
-  {{- with .Values.tolerations }}
-  tolerations:
-  - key: {{ .Values.tolerations.key | quote }}
-    operator: {{ .Values.tolerations.operator | quote }} 
-    value: {{ .Values.tolerations.value | quote }} 
-    effect: {{ .Values.tolerations.effects | quote }}
-  {{- end }}
-  imagePullSecrets:{{ .Values.imagePullSecrets}}
+      volumes:
+        - name: {{ .Values.deployment.name | quote }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
+      {{- end }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+      {{- end }}
