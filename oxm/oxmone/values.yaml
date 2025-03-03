@@ -97,7 +97,8 @@ volume:
   bind: false # set to `true` to bind a volume. Note that `pvc.create` must be set to true for the data to be persistent.
   path: "/mnt/data" # Set to the correct path your application needs.
 
-nodeSelector: "oxmone"
+nodeSelector:
+  nodetype: "oxmone"
 
 tolerations: ""
 

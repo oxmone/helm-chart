@@ -62,9 +62,9 @@ spec:
             claimName: {{ .Values.pvc.name }}
       {{- end }}
 
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: 
+        nodetype: {{ .Values.nodeSelector.nodetype }}
       {{- end }}
 
       {{- with .Values.affinity }}
