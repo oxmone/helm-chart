@@ -9,6 +9,6 @@ entries:
     name: oxmone
     type: application
     urls:
-    - https://oxmone.github.io/helm-chart/oxmone-0.5.0.tgz
-    version: 0.5.0
+    - https://oxmone.github.io/helm-chart/oxmone-0.6.0.tgz
+    version: 0.6.0
 generated: "2025-03-02T02:01:14.8921712+01:00"
